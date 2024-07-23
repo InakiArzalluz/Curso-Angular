@@ -2,25 +2,18 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#">Home</a></li>
-        <li role="presentation"><a href="#">Servers</a></li>
-        <li role="presentation"><a href="#">Users</a></li>
+        <li role="presentation" class="active"> <a routerLink="/">Home</a> </li>
+        <!-- usar el atributo "href" en "a" ocasiona recargar la pagina y perder el estado actual, por eso uso routerLink -->
+        <li role="presentation"> <a routerLink="/servers">Servers</a> </li>
+        <!-- con "/" es absolute path, sin el es relative (to the current) path -->
+        <li role="presentation"> <a [routerLink]="['/users']">Users</a> </li> <!-- Sintaxis de routerLink con hilado mas fino -->
       </ul>
     </div>
   </div>
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <app-home></app-home>
+      <router-outlet> </router-outlet>
+      <!-- router-outlet es una directiva estructural que se va a reemplazar
+           automaticamente por el componente que matchea con la ruta actual -->
     </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <app-users></app-users>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
-      <app-servers></app-servers>
-    </div>
-  </div>
 </div>
