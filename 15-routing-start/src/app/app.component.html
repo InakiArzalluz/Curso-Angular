@@ -2,11 +2,37 @@
   <div class="row">
     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
       <ul class="nav nav-tabs">
-        <li role="presentation" class="active"> <a routerLink="/">Home</a> </li>
-        <!-- usar el atributo "href" en "a" ocasiona recargar la pagina y perder el estado actual, por eso uso routerLink -->
-        <li role="presentation"> <a routerLink="/servers">Servers</a> </li>
-        <!-- con "/" es absolute path, sin el es relative (to the current) path -->
-        <li role="presentation"> <a [routerLink]="['/users']">Users</a> </li> <!-- Sintaxis de routerLink con hilado mas fino -->
+
+        <!-- routerLinkActive setea una clase en el caso de que se esté en la ruta contenida -->
+        <!-- con "/", el link es a absolute path, sino es a relative (to the current) path -->
+        <!-- con "routerLinkActiveOptions" seteo que el matching para "routerLinkActive" sea a la ruta exacta ("/") -->
+        <li
+          role="presentation"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{exact : true}"
+        >
+          <!-- usar el atributo "href" en "a" ocasiona recargar la pagina y perder el estado actual, por eso uso routerLink -->
+          <a routerLink="/">Home</a> 
+        </li>
+
+        <!------------------------------------------------------------------------------------------------------------------>
+        
+        <li
+          role="presentation"
+          routerLinkActive="active"
+        >
+          <a routerLink="/servers">Servers</a>
+        </li>
+
+        <!------------------------------------------------------------------------------------------------------------------>
+        
+        <li
+          role="presentation"
+          routerLinkActive="active"
+        >
+          <!-- Sintaxis de routerLink con hilado mas fino. Se forma a partir de una lista -->
+          <a [routerLink]="['/users']">Users</a>
+        </li> 
       </ul>
     </div>
   </div>
