@@ -1,0 +1,18 @@
+<app-header />
+
+<main>
+  <ul id="users"> <!-- unordered list -->
+      <!-- que chota hace track?  rta: sirve para saber que elemento se actualizo y solo volver a 
+        dibujar ese, reutilizando todos los demas. Track es como una key en base de datos -->
+    <li *ngFor="let user of users">
+      <app-user [user]="user" [selected]="selectedUserId === user.id" (select)="onSelectUser($event)"/>
+      <!-- $event me da acceso al valor emitido por select -->
+    </li>
+  </ul>
+
+  <!-- selectedUserId es posible undefined -->
+  <app-tasks *ngIf="selectedUserId; else fallback " [user]="selectedUser"/>
+  <ng-template #fallback> <!-- Este seria el else, es bastante rari la verdad -->
+    <p id="fallback"> select a user to see their tasks </p>
+  </ng-template>
+</main>

@@ -1,0 +1,17 @@
+<section id="tasks">
+    <header>
+        <h2>{{user.name}}'s Tasks</h2>
+        <menu> <!-- que es un menu? -->
+            <button (click)="onStartAddTask()">Add Task</button> <!-- aca voy a tener un event Listener (click)-->
+        </menu>
+    </header>
+    <app-new-task *ngIf="isAddingTask" [userId]="user.id" (close)="onCloseAddTask()"> </app-new-task>
+    <ul>
+        <!-- aca va un for para todas las tasks del name -->
+        <li *ngFor="let task of userTasks">
+            <!-- Aca va un nuevo Component task -->
+            <app-task [task]="task"></app-task>
+        </li>
+    </ul>
+</section>
+

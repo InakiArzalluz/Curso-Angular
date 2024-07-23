@@ -1,0 +1,26 @@
+<app-card>
+    <!-- (click) es un event listener a un event llamado "click", al que escucha mi boton y ejecuta la funcion onSelectUser() -->
+    <button (click)="onSelectUser()" [class.active]="selected"> <!-- class.active se va a agregar CONDICIONALMENTE porque le asigno un boolean --> 
+        <!-- [src] es property binding, (src vs [src]) y ahi tambien uso la variable ¿como si fuera un string? -->
+        <!-- iamgePath es un getter en UserComponent ==> es una funcion, pero se puede usar como si fuera un atributo -->
+        <img
+            [src]="imagePath" 
+            [alt]="user.name"
+        />
+
+        <!-- {{ }} es string interpolation, y me permite usar el atributo name definido en la clase UserComponent -->
+        <span>{{user.name}}</span>
+    </button>
+</app-card>
+
+<!-- Usando signal:
+<div>
+    <button  (click)="onSelectUser_conSignal()"> 
+        <img
+            [src]="imagePath_conSignal()"
+            [alt]="selectedUser_conSignal().name"
+        />
+        <span>{{selectedUser_conSignal().name}}</span>
+    </button>
+</div>
+-->
