@@ -8,6 +8,7 @@ import { ServersComponent } from '../servers/servers.component';
 import { ServerComponent } from '../servers/server/server.component';
 import { EditServerComponent } from '../servers/edit-server/edit-server.component';
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { AuthGuardService } from '../auth-guard.service';
 
 
 const appRoutes: Routes = [
@@ -15,10 +16,15 @@ const appRoutes: Routes = [
   { path: 'users', component: UsersComponent, children: [
       { path: ':id/:name', component: UserComponent }, // ":" hace que sea dinamico y se pueda obtener el valor de id
   ] }, // localhost:4200/users
-  { path: 'servers', component: ServersComponent, children: [
+  { path: 'servers', 
+    //canActivate: [ AuthGuardService ] , //Esto bloquea toda la ruta
+    canActivateChild: [AuthGuardService], // Esto solo bloquea la hijas. (AuthGuardService debe implementar interfaz CanActivateChild)
+    component: ServersComponent,
+    children: [
       { path: ':id', component: ServerComponent },
       { path: ':id/edit', component: EditServerComponent },
-  ] }, // localhost:4200/servers
+    ]
+  }, // localhost:4200/servers
   { path: 'not-found', component: PageNotFoundComponent },
   { path: '**', redirectTo:'/not-found'}
 ];
