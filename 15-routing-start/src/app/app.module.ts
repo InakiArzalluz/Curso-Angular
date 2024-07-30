@@ -14,6 +14,10 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AppRoutingModule } from './app-routing/app-routing.module';
 import { AuthGuardService } from './auth-guard.service';
 import { FakeAuthService } from './fake-auth.service';
+import { CanDeactivateGuard } from './servers/edit-server/can-deactivate.service';
+import { ErrorPageComponent } from './error-page/error-page.component';
+
+
 
 
 @NgModule({
@@ -25,7 +29,8 @@ import { FakeAuthService } from './fake-auth.service';
     UserComponent,
     EditServerComponent,
     ServerComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +41,7 @@ import { FakeAuthService } from './fake-auth.service';
     ServersService,
     AuthGuardService,
     FakeAuthService,
+    CanDeactivateGuard,
   ],
   bootstrap: [AppComponent]
 })
