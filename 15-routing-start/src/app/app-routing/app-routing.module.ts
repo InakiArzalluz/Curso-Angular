@@ -10,6 +10,8 @@ import { EditServerComponent } from '../servers/edit-server/edit-server.componen
 import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
 import { AuthGuardService } from '../auth-guard.service';
 import { CanDeactivateGuard } from '../servers/edit-server/can-deactivate.service';
+import { ErrorPageComponent } from '../error-page/error-page.component';
+import { ServerResolver } from '../servers/server/server-resolver.service';
 
 
 const appRoutes: Routes = [
@@ -22,15 +24,17 @@ const appRoutes: Routes = [
     canActivateChild: [AuthGuardService], // Esto solo bloquea la hijas. (AuthGuardService debe implementar interfaz CanActivateChild)
     component: ServersComponent,
     children: [
-      { path: ':id', component: ServerComponent },
+      { path: ':id', component: ServerComponent, resolve: {server: ServerResolver} },
       { path: ':id/edit',
         component: EditServerComponent,
         canDeactivate: [CanDeactivateGuard]
       },
     ]
   }, // localhost:4200/servers
-  { path: 'not-found', component: PageNotFoundComponent },
-  { path: '**', redirectTo:'/not-found'}
+  //{ path: 'not-found', component: PageNotFoundComponent },
+  { path: 'not-found', component: ErrorPageComponent, data: {message: 'Page not found'} },
+  { path: '**', redirectTo:'/not-found'},
+  
 ];
 
 
@@ -38,6 +42,7 @@ const appRoutes: Routes = [
   declarations: [],
   imports: [
     CommonModule,
+    //RouterModule.forRoot(appRoutes, {useHash: true}),
     RouterModule.forRoot(appRoutes),
   ],
   exports: [
