@@ -17,6 +17,7 @@ export class PostsService {
             'https://ng-complete-guide-3b842-default-rtdb.firebaseio.com/posts.json',
             postData,
             {
+                observe: 'response', // Obtengo la httpReponse completa, en lugar de solo el Body
                 headers: new  HttpHeaders({
                     'Custom-Header1': 'HelloThere',
                     'Custom-Header2': 'GeneralKenobi',
@@ -29,7 +30,7 @@ export class PostsService {
             }
         ).subscribe(
             responseData => {
-                console.log(responseData);
+                console.log(responseData.body);
             },
             error => {
                 this.error.next(error.message)
