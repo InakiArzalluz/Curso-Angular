@@ -42,7 +42,10 @@ export class PostsService {
         // Retorno el observable
         return this.http
             .get<{ [key: string]: Post }>(
-                'https://ng-complete-guide-3b842-default-rtdb.firebaseio.com/posts.json'
+                'https://ng-complete-guide-3b842-default-rtdb.firebaseio.com/posts.json',
+                {
+                    responseType: 'json',
+                }
             )
             .pipe(
                 map(responseData => {
@@ -67,6 +70,7 @@ export class PostsService {
             'https://ng-complete-guide-3b842-default-rtdb.firebaseio.com/posts.json',
             {
                 observe:'events', //Observo los eventos ¿?
+                responseType: 'text',
             }
         ).pipe(tap(event => {
             // El operador tap sirve para ejecutar codigo sin modificar la response
