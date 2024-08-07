@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Post } from "./post.model";
 import { map, catchError } from 'rxjs/operators';
@@ -16,6 +16,17 @@ export class PostsService {
         this.http.post<{ name: string }>(
             'https://ng-complete-guide-3b842-default-rtdb.firebaseio.com/posts.json',
             postData,
+            {
+                headers: new  HttpHeaders({
+                    'Custom-Header1': 'HelloThere',
+                    'Custom-Header2': 'GeneralKenobi',
+                }),
+                params: new HttpParams().set('print', 'pretty'), 
+                // Parametro de la url, entonces pasa de ser:
+                //              'https://FirebaseUrl.com/posts.json'
+                // A ser:
+                //              'https://FirebaseUrl.com/posts.json?print=pretty'
+            }
         ).subscribe(
             responseData => {
                 console.log(responseData);
