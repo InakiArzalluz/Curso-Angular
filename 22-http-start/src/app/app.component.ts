@@ -21,7 +21,10 @@ export class AppComponent implements OnInit, OnDestroy {
     // Aca recibo el error en base al Subject. Es el metodo que estoy usando para pasarme
     // el error que pueda ocurrir en onCreatePost. Es util xq las Subscriptions son Multicast
     // (Los Observables comunes son Unicast)
-    this.errorSub = this.postsService.error.subscribe(error => { this.error = error })
+    this.errorSub = this.postsService.error.subscribe(error => {
+      this.isFetching = false;
+      this.error = error
+    })
     this.onFetchPosts();
   }
 
@@ -39,6 +42,7 @@ export class AppComponent implements OnInit, OnDestroy {
         this.loadedPosts = posts;
       },
       error => {
+        this.isFetching = false;
         this.error = error.message;
       }
     );
@@ -50,6 +54,10 @@ export class AppComponent implements OnInit, OnDestroy {
       // SI NO ME SUBSCRIBO, EL REQUEST NO SE MANDA. NO OLVIDARLO.
       this.loadedPosts = [];
     });    
+  }
+
+  onHandleError() {
+    this.error = null;
   }
 
   ngOnDestroy(): void {

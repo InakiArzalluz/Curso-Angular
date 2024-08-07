@@ -62,6 +62,7 @@
       <div class="alert alert-danger" *ngIf="error"> <!-- Lo muestra si NO es null -->
         <h1>An Error Occurred!</h1>
         <p>{{error}}</p>
+        <button class="btn btn-danger" (click)="onHandleError()">Okay Polilla</button>
       </div>
     </div>
   </div>
