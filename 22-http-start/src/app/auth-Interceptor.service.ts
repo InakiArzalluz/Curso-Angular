@@ -4,18 +4,8 @@ import { tap } from "rxjs/operators";
 
 export class AuthInterceptorService implements HttpInterceptor {
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        console.log('Request is on it\'s way');
         // Agrego un "Auth" header fake
         const modifiedRequest = req.clone({headers: req.headers.append('Auth', 'xyz')})
-        return next.handle(modifiedRequest).pipe(tap(
-            event => {
-                // Ahora tambien intercepto al obtener la respuesta
-                console.log(event);
-                if(event.type === HttpEventType.Response){
-                    console.log('Response arrived, body: ');
-                    console.log(event.body);
-                }
-            }
-        ));
+        return next.handle(modifiedRequest);
     }
 }
