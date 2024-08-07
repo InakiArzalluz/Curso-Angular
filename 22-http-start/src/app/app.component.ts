@@ -1,22 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import { Post } from './post.model';
 import { PostsService } from './posts.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   loadedPosts: Post[] = [];
   isFetching = false;
   error = null;
+  private errorSub: Subscription; // Asi se desuscribe al destroy
 
   constructor(private http: HttpClient, private postsService: PostsService) {}
 
   ngOnInit() {
+    // Aca recibo el error en base al Subject. Es el metodo que estoy usando para pasarme
+    // el error que pueda ocurrir en onCreatePost. Es util xq las Subscriptions son Multicast
+    // (Los Observables comunes son Unicast)
+    this.errorSub = this.postsService.error.subscribe(error => { this.error = error })
     this.onFetchPosts();
   }
 
@@ -45,5 +50,9 @@ export class AppComponent implements OnInit {
       // SI NO ME SUBSCRIBO, EL REQUEST NO SE MANDA. NO OLVIDARLO.
       this.loadedPosts = [];
     });    
+  }
+
+  ngOnDestroy(): void {
+    this.errorSub.unsubscribe();
   }
 }
